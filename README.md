@@ -11,12 +11,12 @@ An SQL query builder for RN projects. It executes built queries if an executing 
 
 This is the "entry point" of the builder. It contains only `static` methods and fields.
 
-	import SqlBuilder from "react-native-common-utils";
+    import SqlBuilder from "react-native-common-utils";
 
  1. <a name="csqlBuilderSetDebug"></a> [setDebug()](#sqlBuilderSetDebug)
  1. <a name="csqlBuilderSetSqlExecutor"></a>[setSqlExecutor()](#sqlBuilderSetSqlExecutor)
- 1. <a name="csqlBuilderExecuteSql"></a>[executeSql](#sqlBuilderExecuteSql)
- 1. <a name="csqlBuilderCreateTable"></a>[createTable](#sqlBuilderCreateTable)
+ 1. <a name="csqlBuilderExecuteSql"></a>[executeSql()](#sqlBuilderExecuteSql)
+ 1. <a name="csqlBuilderCreateTable"></a>[createTable()](#sqlBuilderCreateTable)
 
 <!-- -->
 
@@ -24,19 +24,19 @@ This is the "entry point" of the builder. It contains only `static` methods and 
 	
 	Turns on or off the debug mode. In debug mode each executed sql statement is logged to the console.
 	
-		SqlBuilder.setDebug(debug);
+        SqlBuilder.setDebug(debug);
 
  - <a name="sqlBuilderSetSqlExecutor"></a>[setSqlExecutor()<i class="icon-up"></i>](#csqlBuilderSetSqlExecutor)
 
 	Sets a function to be used to execute sql statements.
 	
-		import SQLite from "react-native-sqlite-storage";
-		
-		...
-		
-		const db = await SQLite.openDatabase(...);
-		
-		SqlBuilder.setSqlExecutor(db.executeSql.bind(db));
+        import SQLite from "react-native-sqlite-storage";
+        
+        ...
+        
+        const db = await SQLite.openDatabase(...);
+        
+        SqlBuilder.setSqlExecutor(db.executeSql.bind(db));
 
  - <a name="sqlBuilderExecuteSql"></a>[executeSql()<i class="icon-up"></i>](#csqlBuilderExecuteSql)
 	
@@ -78,9 +78,9 @@ This is the "entry point" of the builder. It contains only `static` methods and 
 	
 	There are shorthands for the `INTEGER`, `TEXT` and `BLOB` types:
 	
-	        tb.integer("rowid").primary();
-	        tb.text("comment").notNull();
-	        tb.blob("image");
+        tb.integer("rowid").primary();
+        tb.text("comment").notNull();
+        tb.blob("image");
 
  - unique()
 	
