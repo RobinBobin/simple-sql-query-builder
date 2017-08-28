@@ -1,0 +1,25 @@
+{
+  "name": "react-native-sql-query-builder",
+  "version": "1.0.0",
+  "description": "An SQL query builder. It executes built queries if an executing function is set.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+   "react-native-common-utils": "latest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RobinBobin/react-native-sql-query-builder.git"
+  },
+  "keywords": [
+    "sql query builder"
+  ],
+  "author": "Ruben Shalimov <r_shalimov@inbox.ru>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RobinBobin/react-native-sql-query-builder/issues"
+  },
+  "homepage": "https://github.com/RobinBobin/react-native-sql-query-builder#readme"
+}
