@@ -11,7 +11,7 @@ An SQL query builder for RN projects. It executes built queries if an executing 
 
 This is the "entry point" of the builder. It contains only `static` methods and fields.
 
-    import SqlBuilder from "react-native-common-utils";
+    import SqlBuilder from "react-native-sql-query-builder";
 
  1. <a name="csqlBuilderSetDebug"></a> [setDebug()](#sqlBuilderSetDebug)
  1. <a name="csqlBuilderSetSqlExecutor"></a>[setSqlExecutor()](#sqlBuilderSetSqlExecutor)
