@@ -1,7 +1,7 @@
 import {
    StaticUtils,
    ArrayStringifier
-} from "react-native-common-utils";
+} from "client-side-common-utils";
 import BuilderWithWhere from "./BuilderWithWhere";
 
 export default class InsertUpdateBuilder extends BuilderWithWhere {

@@ -1,7 +1,7 @@
 import {
    StaticUtils,
    ArrayStringifier
-} from "react-native-common-utils";
+} from "client-side-common-utils";
 import Entry from "./Entry";
 
 class UniqueEntry extends Entry{

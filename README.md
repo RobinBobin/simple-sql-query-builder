@@ -1,6 +1,9 @@
-An SQL query builder for RN projects. It executes built queries if an executing function is set.
+A simple SQL query builder. It executes built queries if an executing function is set.
 
-### Usage
+ 1. <a name="cusage"></a>[Usage](#usage)
+ 2. <a name="cversionHistory"></a>[Version history](#versionHistory)
+
+### <a name="usage"></a>[Usage](#cusage)
 
  1. <a name="csqlBuilder"></a>[SqlBuilder](#sqlBuilder)
  1. <a name="ctableBuilder"></a>[TableBuilder](#tableBuilder)
@@ -40,7 +43,7 @@ This is the "entry point" of the builder. It contains only `static` methods and 
 
  - <a name="sqlBuilderExecuteSql"></a>[executeSql()<i class="icon-up"></i>](#csqlBuilderExecuteSql)
 	
-	Executes an sql statement by invoking a function set by `setSqlExecutor()`. It returns the result of that function invocation or simply the passed sql statement if `setSqlExecutor` hasn't been called.
+	Executes an sql statement by invoking a function set by `setSqlExecutor()`. It returns the result of that function invocation or simply the passed sql statement if `setSqlExecutor()` hasn't been called.
 	
 	The result of invoking this method is returned from the CRUD methods.
 	
@@ -133,10 +136,11 @@ This is the "entry point" of the builder. It contains only `static` methods and 
             .collate("NOCASE")
             .order("ASC");
 
-### Version history
+### <a name="versionHistory"></a>[Version history](#cversionHistory)
 
 Version number|Changes
 -|-
 v1.0.0|Initial release.
+
 <br><br>
 > Written with [StackEdit](https://stackedit.io/).

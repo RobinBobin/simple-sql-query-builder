@@ -1,7 +1,7 @@
 import {
    StaticUtils,
    ArrayStringifier
-} from "react-native-common-utils";
+} from "client-side-common-utils";
 import Column from "./Column";
 import UniqueBuilder  from "./UniqueBuilder";
 

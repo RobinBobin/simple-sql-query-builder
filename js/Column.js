@@ -1,4 +1,4 @@
-import { ArrayStringifier } from "react-native-common-utils";
+import { ArrayStringifier } from "client-side-common-utils";
 import Entry from "./Entry";
 
 export default class Column extends Entry {

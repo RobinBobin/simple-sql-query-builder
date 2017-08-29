@@ -1,4 +1,4 @@
-import { ArrayStringifier } from "react-native-common-utils";
+import { ArrayStringifier } from "client-side-common-utils";
 
 export default class FromBuilder {
    constructor(table) {
