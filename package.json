@@ -1,6 +1,6 @@
 {
   "name": "simple-sql-query-builder",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple SQL query builder.",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,7 @@
     "sql query builder"
   ],
   "author": "Ruben Shalimov <r_shalimov@inbox.ru>",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/RobinBobin/simple-sql-query-builder/issues"
   },

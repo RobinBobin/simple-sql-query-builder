@@ -41,7 +41,7 @@ export default class InsertUpdateBuilder extends BuilderWithWhere {
          str = new ArrayStringifier(this.pairs)
             .setPrefix(`UPDATE ${this.table} SET `)
             .setElementProcessor(pair => `${pair[0]} = ${pair[1]}`)
-            .setPostfix(`${this.whereBuilder}`)
+            .setPostfix(`${this.whereBuilder};`)
             .process();
       }
       

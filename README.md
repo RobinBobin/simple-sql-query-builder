@@ -6,20 +6,30 @@ A simple SQL query builder. It executes built queries if an executing function i
 ### <a name="usage"></a>[Usage](#cusage)
 
  1. <a name="csqlBuilder"></a>[SqlBuilder](#sqlBuilder)
- 1. <a name="ctableBuilder"></a>[TableBuilder](#tableBuilder)
- 1. <a name="ccolumn"></a>[Column](#column)
- 1. <a name="cuniqueBuilder"></a>[UniqueBuilder](#uniqueBuilder)
+ 2. <a name="ctableBuilder"></a>[TableBuilder](#tableBuilder)
+ 3. <a name="ccolumn"></a>[Column](#column)
+ 4. <a name="cuniqueBuilder"></a>[UniqueBuilder](#uniqueBuilder)
+ 5. <a name="cinsertUpdateBuilder"></a>[InsertUpdateBuilder](#insertUpdateBuilder)
+ 6. <a name="cwhereBuilder"></a>[WhereBuilder](#whereBuilder)
+ 7. <a name="ccondition"></a>[Condition](#condition)
+ 8. <a name="cselectBuilder"></a>[SelectBuilder](#selectBuilder)
+ 9. <a name="cfromBuilder"></a>[FromBuilder](#fromBuilder)
 
 #### <a name="sqlBuilder"></a>[SqlBuilder<i class="icon-up"></i>](#csqlBuilder)
 
 This is the "entry point" of the builder. It contains only `static` methods and fields.
 
-    import SqlBuilder from "react-native-sql-query-builder";
+    import SqlBuilder from "simple-sql-query-builder";
 
  1. <a name="csqlBuilderSetDebug"></a> [setDebug()](#sqlBuilderSetDebug)
- 1. <a name="csqlBuilderSetSqlExecutor"></a>[setSqlExecutor()](#sqlBuilderSetSqlExecutor)
- 1. <a name="csqlBuilderExecuteSql"></a>[executeSql()](#sqlBuilderExecuteSql)
- 1. <a name="csqlBuilderCreateTable"></a>[createTable()](#sqlBuilderCreateTable)
+ 2. <a name="csqlBuilderSetSqlExecutor"></a>[setSqlExecutor()](#sqlBuilderSetSqlExecutor)
+ 3. <a name="csqlBuilderExecuteSql"></a>[executeSql()](#sqlBuilderExecuteSql)
+ 4. <a name="csqlBuilderCreateTable"></a>[createTable()](#sqlBuilderCreateTable)
+ 5. <a name="csqlBuilderInsert"></a>[insert()](#sqlBuilderInsert)
+ 6. <a name="csqlBuilderSelect"></a>[select()](#sqlBuilderSelect)
+ 7. <a name="csqlBuilderUpdate"></a>[update()](#sqlBuilderUpdate)
+ 8. <a name="csqlBuilderDelete"></a>[delete()](#sqlBuilderDelete)
+ 9. <a name="csqlBuilderStaticFields"></a>[static fields](#sqlBuilerStaticFields)
 
 <!-- -->
 
@@ -55,7 +65,7 @@ This is the "entry point" of the builder. It contains only `static` methods and 
 	
         const name = "weights";
         
-        const callback = tableBuilder => {
+        const callback = tb => {
             tb.integer("rowid").primary();
             tb.integer("millis").notNull();
             tb.integer("gross").notNull();
@@ -66,6 +76,62 @@ This is the "entry point" of the builder. It contains only `static` methods and 
         const ifNotExists = Boolean; // Adds "IF NOT EXISTS" if true. Default: true.
         
         SqlBuilder.createTable(name, callback, ifNotExists);
+
+ - <a name="sqlBuilderInsert"></a>[insert()<i class="icon-up"></i>](#csqlBuilderInsert)
+    
+    Inserts a row using [InsertUpdateBuilder](#insertUpdateBuilder).
+    
+        const table = "weights";
+        
+        const callback = ib => ib
+            .columnValue("millis", new Date().getTime())
+            .columnValue("gross", gross)
+            .columnValue("net", net)
+            .columnValue("comment", comment);
+        
+        SqlBuilder.insert(table, callback);
+
+ - <a name="sqlBuilderSelect"></a>[select()<i class="icon-up"></i>](#csqlBuilderSelect)
+    
+    Selects rows using [SelectBuilder](#selectBuilder).
+    
+        SqlBuilder.select(sb => sb
+            .column("rowid")
+            .column("*")
+            .from("weights"));
+
+ - <a name="sqlBuilderUpdate"></a>[update()<i class="icon-up"></i>](#csqlBuilderUpdate)
+    
+    Updates rows using [InsertUpdateBuilder](#insertUpdateBuilder).
+    
+        const table = "expenseImages";
+        
+        const callback = ub => ub
+            .columnValue("path", path)
+            .where(wb => wb.column("rowid").e(image.rowid));
+        
+        SqlBuilder.update(table, callback);
+
+ - <a name="sqlBuilderDelete"></a>[delete()<i class="icon-up"></i>](#csqlBuilderDelete)
+    
+    Deletes rows using [WhereBuilder](#whereBuilder).
+    
+        const table = "journeys";
+        const callback = wb => wb.column("rowid").e(rowid);
+        
+        SqlBuilder.delete(table, callback);
+
+ - <a name="sqlBuilderStaticFields"></a>[static fields<i class="icon-up"></i>](#csqlBuilderStaticFields)
+    
+    There are several `static` fields in the class to facilitate creating instances of commonly used auxiliary classes: `SelectBuilder`, `WhereBuilder` and `Condition`. So instead of
+    
+        import SelectBuilder from "simple-sql-query-builder/js/SelectBuilder";
+        
+        const sb = new SelectBuilder();
+
+    you can just write
+    
+        const sb = new SqlBuilder.SelectBuilder();
 
 #### <a name="tableBuilder"></a>[TableBuilder<i class="icon-up"></i>](#ctableBuilder)
 
@@ -103,6 +169,8 @@ This is the "entry point" of the builder. It contains only `static` methods and 
 
 #### <a name="column"></a>[Column](#ccolumn)
 
+All these methods return `this` to allow method chaining.
+
  - primary()
 	
 	Adds `PRIMARY KEY` to this column definition.
@@ -136,10 +204,104 @@ This is the "entry point" of the builder. It contains only `static` methods and 
             .collate("NOCASE")
             .order("ASC");
 
+#### <a name="insertUpdateBuilder"></a>[InsertUpdateBuilder<i class="icon-up"></i>](#cinsertUpdateBuilder)
+
+All these methods return `this` to allow method chaining.
+
+ - columnValue()
+
+    Specifies a column value.
+    
+        insertUpdateBuilder.columnValue(
+            column,
+            value,
+            add, // Boolean. If true this column will be added to the generated SQL code. Default: true.
+            quoteIfString // Boolean. If true and value is a string, quotes are added to the generated SQL code for this value. Default: true.
+        );
+
+    Examples:
+    
+     - `"INSERT INTO tableName (columnName1) VALUES (10);"`
+    
+            SqlBuilder.insert(
+                "tableName",
+                ib => ib.columnValue("columnName1", 10));
+        
+        or
+        
+            SqlBuilder.insert(
+                "tableName",
+                ib => ib
+                    .columnValue("columnName1", 10)
+                    .columnValue("columnValue2", 20, false));
+
+     - `"INSERT INTO tableName (columnName1, columnName2) VALUES (10, "String value");"`
+        
+            SqlBuilder.insert(
+                "tableName",
+                ib => ib
+                    .columnValue("columnName1", 10)
+                    .columnValue("columnName2", "String value"));
+
+ - where()
+
+    Specifies a `WHERE` clause. It's a no-op if this instance is used for insertion.
+    
+        insertUpdateBuilder.where(
+            callbackOrConditionString, // See below.
+            add // Boolean. If true the WHERE-clause will be added to the generated SQL code. Default: true.
+        );
+
+    `callbackOrConditionString` can be one of:
+    
+     - A callback receiving a [WhereBuilder](#whereBuilder) instance;
+     - a string without `WHERE` itself;
+     - A [Condition](#condition) instance;
+    
+    Examples:
+
+     - `UPDATE tableName SET columnName1 = 10, columnName2 = "String value" WHERE columnName3 = 314;`
+        
+            SqlBuilder.update(
+                "tableName",
+                ib => ib
+                    .columnValue("columnName1", 10)
+                    .columnValue("columnName2", "String value")
+                    .where(wb => wb.column("columnName3").e(314)));
+
+        or
+
+            SqlBuilder.update(
+                "tableName", ib => ib
+                    .columnValue("columnName1", 10)
+                    .columnValue("columnName2", "String value")
+                    .where("columnName3 = 314"));
+
+        or
+        
+            const condition = new SqlBuilder.Condition("columnName3");
+            condition.e(314);
+            
+            SqlBuilder.update(
+                "tableName",
+                ib => ib
+                    .columnValue("columnName1", 10)
+                    .columnValue("columnName2", "String value")
+                    .where(condition));
+
+#### <a name="whereBuilder"></a>[WhereBuilder<i class="icon-up"></i>](#cwhereBuilder)
+
+#### <a name="condition"></a>[Condition<i class="icon-up"></i>](#ccondition)
+
+#### <a name="selectBuilder"></a>[SelectBuilder<i class="icon-up"></i>](#cselectBuilder)
+
+#### <a name="fromBuilder"></a>[FromBuilder<i class="icon-up"></i>](#cfromBuilder)
+
 ### <a name="versionHistory"></a>[Version history](#cversionHistory)
 
 Version number|Changes
 -|-
+v1.0.1|1.&nbsp;Readme updated.<br>2.&nbsp;`UPDATE` queries weren't terminated with `;`. Fixed.
 v1.0.0|Initial release.
 
 <br><br>
