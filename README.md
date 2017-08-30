@@ -29,7 +29,7 @@ This is the "entry point" of the builder. It contains only `static` methods and 
  6. <a name="csqlBuilderSelect"></a>[select()](#sqlBuilderSelect)
  7. <a name="csqlBuilderUpdate"></a>[update()](#sqlBuilderUpdate)
  8. <a name="csqlBuilderDelete"></a>[delete()](#sqlBuilderDelete)
- 9. <a name="csqlBuilderStaticFields"></a>[static fields](#sqlBuilerStaticFields)
+ 9. <a name="csqlBuilderStaticFields"></a>[static fields](#sqlBuilderStaticFields)
 
 <!-- -->
 
