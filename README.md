@@ -314,7 +314,7 @@ The following methods return `this` to allow method chaining.
     
     Groups conditions. Returns `this` for method chaining. There are shorthands for the `AND`, `OR`, `(` and `)` groupings:
         
-         WHERE (c1 = 10 AND c2 = 20) OR (c3 >= 30 AND c4 <= 40)
+        WHERE (c1 = 10 AND c2 = 20) OR (c3 >= 30 AND c4 <= 40)
          
         wb
             .push()
@@ -356,13 +356,13 @@ The following methods return `this` to allow method chaining.
     
     Method|SQL operator
     :-:|:-:
-    `e()`|`=`
-    `ne()`|`!=`
-    `g()`|`>`
-    `ge()`|`>=`
-    `l()`|`<`
-    `le()`|`<=`
-    `in()`|`IN`
+    e()|=
+    ne()|!=
+    g()|>
+    ge()|>=
+    l()|<
+    le()|<=
+    in()|IN
 
 #### <a name="selectBuilder"></a>[SelectBuilder<i class="icon-up"></i>](#cselectBuilder)
 
@@ -423,9 +423,9 @@ The following methods return `this` to allow method chaining.
     
     Method|JOIN type
     -|-
-    `innerJoin()`|`INNER JOIN`
-    `leftOuterJoin()`|`LEFT OUTER JOIN`
-    `rightOuterJoin()`|`RIGHT OUTER JOIN`
+    innerJoin()|INNER JOIN
+    leftOuterJoin()|LEFT OUTER JOIN
+    rightOuterJoin()|RIGHT OUTER JOIN
 
 
         SELECT c1, c2 FROM table1 LEFT OUTER JOIN table2 ON table1.rowid = table2.rowid;
