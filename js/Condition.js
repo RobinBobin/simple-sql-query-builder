@@ -46,7 +46,7 @@ export default class Condition {
    
    operator(operator, value, quoteIfString = true) {
       this.operator = operator;
-      this.value = quoteIfString ? StaticUtils.quoteIfString(value) : value;
+      this.value = StaticUtils.safeQuoteIfString(value, quoteIfString);
       
       return this.whereBuilder;
    }

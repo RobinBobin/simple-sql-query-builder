@@ -137,7 +137,7 @@ This is the "entry point" of the builder. It contains only `static` methods and 
 
  - column()
 	
-	Creates a [Column](#column) and returns it to allow method chaining.
+	Creates a [Column](#column) and returns it for method chaining.
 	
         tb
             .column(
@@ -169,7 +169,7 @@ This is the "entry point" of the builder. It contains only `static` methods and 
 
 #### <a name="column"></a>[Column](#ccolumn)
 
-All these methods return `this` to allow method chaining.
+The following methods return `this` to allow method chaining.
 
  - primary()
 	
@@ -206,7 +206,7 @@ All these methods return `this` to allow method chaining.
 
 #### <a name="insertUpdateBuilder"></a>[InsertUpdateBuilder<i class="icon-up"></i>](#cinsertUpdateBuilder)
 
-All these methods return `this` to allow method chaining.
+The following methods return `this` to allow method chaining.
 
  - columnValue()
 
@@ -254,7 +254,7 @@ All these methods return `this` to allow method chaining.
 
     `callbackOrConditionString` can be one of:
     
-     - A callback receiving a [WhereBuilder](#whereBuilder) instance;
+     - A callback function receiving a [WhereBuilder](#whereBuilder) instance;
      - a string without `WHERE` itself;
      - A [Condition](#condition) instance;
     
@@ -291,16 +291,156 @@ All these methods return `this` to allow method chaining.
 
 #### <a name="whereBuilder"></a>[WhereBuilder<i class="icon-up"></i>](#cwhereBuilder)
 
+ - condition()
+    
+    Sets a condition. `condition` is an object that evaluates to a string without `WHERE`.
+    
+        const condition = "columnName3 = 314";
+        
+        // or
+        
+        const condition = new SqlBuilder.Condition("columnName3");
+        condition.e(314);
+        
+        wb.condition(condition);
+
+ - column()
+    
+    Adds a [Condition](#condition) to this `WHERE` and returns it for method chaining.
+    
+        wb.column("columnName").e(1);
+
+ - grouping()
+    
+    Groups conditions. Returns `this` for method chaining. There are shorthands for the `AND`, `OR`, `(` and `)` groupings:
+        
+         WHERE (c1 = 10 AND c2 = 20) OR (c3 >= 30 AND c4 <= 40)
+         
+        wb
+            .push()
+                .column("c1").e(10)
+                .and()
+                .column("c2").e(20)
+            .pop()
+            .or()
+            .push()
+                .column("c3").ge(30)
+                .and()
+                .column("c4").le(40)
+            .pop();
+
 #### <a name="condition"></a>[Condition<i class="icon-up"></i>](#ccondition)
+
+ - constructor()
+    
+    Constructs a condition.
+    
+        new SqlBuilder.Condition(
+            "columnName",
+            whereBuilder // An instance of WhereBuilder. It's returned from operator(). Can be undefined.
+        );
+
+ - operator()
+   
+   Specifies a relation between a column value and the passed `value`. Returns the [WhereBuilder](#whereBuilder) instance passed to the constructor.
+    
+        const condition = new SqlBuilder.Condition("columnName");
+        
+        condition.operator(
+            operator, // String. One of comparison operators.
+            value, // Object.
+            quoteIfString // Boolean. If true and value is a string, quotes are added to the generated SQL code for this value. Default: true.
+        );
+    
+    There are several shorthands defined:
+    
+    Method|SQL operator
+    :-:|:-:
+    `e()`|`=`
+    `ne()`|`!=`
+    `g()`|`>`
+    `ge()`|`>=`
+    `l()`|`<`
+    `le()`|`<=`
+    `in()`|`IN`
 
 #### <a name="selectBuilder"></a>[SelectBuilder<i class="icon-up"></i>](#cselectBuilder)
 
+The following methods return `this` to allow method chaining.
+
+ - column()
+
+    Specifies a column name to select data from.
+
+        sb.column(
+            column, // String. Column name.
+            alias // String. Alias to use. Can be undefined.
+        ));
+
+ - from()
+
+    Specifies a data source.
+
+        sb.from(
+            table, // String. Table name.
+            callback // A callback function used for JOINs. Can be undefined.
+        );
+
+    If you specify `callback` it will be invoked and passed a [FromBuilder](#fromBuilder) instance.
+
+ - orderBy()
+
+    Adds an `ORDER BY` statement.
+    
+        sb.orderBy(
+            column, // String. Column name.
+            direction // String. Order direction. Default: "ASC"
+        );
+
+ - limit()
+
+    Adds a `LIMIT` statement.
+
+        sb.limit(
+            limit, // Number. The necessary limit.
+            add // Boolean. If true this statement will be added to the generated SQL code. Default: true.
+        );
+
 #### <a name="fromBuilder"></a>[FromBuilder<i class="icon-up"></i>](#cfromBuilder)
+
+ - addJoin()
+
+    Adds a `JOIN` of the specified type and returns `this` for method chaining.
+
+        fb.addJoin(
+            joinType, // String. JOIN type.
+            table, // String. The second table name.
+            field1, // String. A column name in the first table.
+            field2 // String. A column name in the second table.
+        );
+
+    There are several shorthands defined:
+    
+    Method|JOIN type
+    -|-
+    `innerJoin()`|`INNER JOIN`
+    `leftOuterJoin()`|`LEFT OUTER JOIN`
+    `rightOuterJoin()`|`RIGHT OUTER JOIN`
+
+
+        SELECT c1, c2 FROM table1 LEFT OUTER JOIN table2 ON table1.rowid = table2.rowid;
+        
+        SqlBuilder.select(sb => sb
+            .column("c1")
+            .column("c2")
+            .from("table1", fb => fb
+                .leftOuterJoin("table2", "table1.rowid", "table2.rowid")));
 
 ### <a name="versionHistory"></a>[Version history](#cversionHistory)
 
 Version number|Changes
 -|-
+v1.0.2|1.&nbsp;Readme updated.<br>2.&nbsp; `SELECT` and `DELETE` queries weren't terminated with `;`. Fixed.
 v1.0.1|1.&nbsp;Readme updated.<br>2.&nbsp;`UPDATE` queries weren't terminated with `;`. Fixed.
 v1.0.0|Initial release.
 

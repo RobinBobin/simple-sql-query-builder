@@ -47,6 +47,6 @@ export default class SqlBuilder {
       
       callback(whereBuilder);
       
-      return SqlBuilder.executeSql(`DELETE FROM ${table}${whereBuilder}`);
+      return SqlBuilder.executeSql(`DELETE FROM ${table}${whereBuilder};`);
    }
 }
