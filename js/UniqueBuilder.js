@@ -1,7 +1,7 @@
 import {
    StaticUtils,
    ArrayStringifier
-} from "client-side-common-utils";
+} from "simple-common-utils";
 import Entry from "./Entry";
 
 class UniqueEntry extends Entry{

@@ -1,7 +1,7 @@
 import {
    StaticUtils,
    ArrayStringifier
-} from "client-side-common-utils";
+} from "simple-common-utils";
 import BuilderWithWhere from "./BuilderWithWhere";
 
 export default class InsertUpdateBuilder extends BuilderWithWhere {

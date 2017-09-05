@@ -1,4 +1,4 @@
-import { ArrayStringifier } from "client-side-common-utils";
+import { ArrayStringifier } from "simple-common-utils";
 
 export default class FromBuilder {
    constructor(table) {

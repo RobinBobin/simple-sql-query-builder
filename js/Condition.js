@@ -1,7 +1,7 @@
 import {
    StaticUtils,
    ArrayStringifier
-} from "client-side-common-utils";
+} from "simple-common-utils";
 
 export default class Condition {
    constructor(column, whereBuilder) {

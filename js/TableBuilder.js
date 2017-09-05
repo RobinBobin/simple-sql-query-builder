@@ -1,7 +1,7 @@
 import {
    StaticUtils,
    ArrayStringifier
-} from "client-side-common-utils";
+} from "simple-common-utils";
 import Column from "./Column";
 import UniqueBuilder  from "./UniqueBuilder";
 
