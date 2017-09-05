@@ -440,6 +440,7 @@ The following methods return `this` to allow method chaining.
 
 Version number|Changes
 -|-
+v1.0.3|`client-side-common-utils` deprecated; switched to `simple-common-utils`.
 v1.0.2|1.&nbsp;Readme updated.<br>2.&nbsp; `SELECT` and `DELETE` queries weren't terminated with `;`. Fixed.
 v1.0.1|1.&nbsp;Readme updated.<br>2.&nbsp;`UPDATE` queries weren't terminated with `;`. Fixed.
 v1.0.0|Initial release.
