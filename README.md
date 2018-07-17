@@ -1,4 +1,4 @@
-A simple SQL query builder. It executes built queries if an executing function is set.
+﻿A simple SQL query builder. It executes built queries if an executing function is set.
 
  1. <a name="cusage"></a>[Usage](#usage)
  2. <a name="cversionHistory"></a>[Version history](#versionHistory)
@@ -22,14 +22,15 @@ This is the "entry point" of the builder. It contains only `static` methods and 
     import SqlBuilder from "simple-sql-query-builder";
 
  1. <a name="csqlBuilderSetDebug"></a> [setDebug()](#sqlBuilderSetDebug)
- 2. <a name="csqlBuilderSetSqlExecutor"></a>[setSqlExecutor()](#sqlBuilderSetSqlExecutor)
- 3. <a name="csqlBuilderExecuteSql"></a>[executeSql()](#sqlBuilderExecuteSql)
- 4. <a name="csqlBuilderCreateTable"></a>[createTable()](#sqlBuilderCreateTable)
- 5. <a name="csqlBuilderInsert"></a>[insert()](#sqlBuilderInsert)
- 6. <a name="csqlBuilderSelect"></a>[select()](#sqlBuilderSelect)
- 7. <a name="csqlBuilderUpdate"></a>[update()](#sqlBuilderUpdate)
- 8. <a name="csqlBuilderDelete"></a>[delete()](#sqlBuilderDelete)
- 9. <a name="csqlBuilderStaticFields"></a>[static fields](#sqlBuilderStaticFields)
+ 2. <a name="csqlBuilderSetQuotingSymbol"></a>[setQuotingSymbol()](#sqlBuilderSetQuotingSymbol)
+ 3. <a name="csqlBuilderSetSqlExecutor"></a>[setSqlExecutor()](#sqlBuilderSetSqlExecutor)
+ 4. <a name="csqlBuilderExecuteSql"></a>[executeSql()](#sqlBuilderExecuteSql)
+ 5. <a name="csqlBuilderCreateTable"></a>[createTable()](#sqlBuilderCreateTable)
+ 6. <a name="csqlBuilderInsert"></a>[insert()](#sqlBuilderInsert)
+ 7. <a name="csqlBuilderSelect"></a>[select()](#sqlBuilderSelect)
+ 8. <a name="csqlBuilderUpdate"></a>[update()](#sqlBuilderUpdate)
+ 9. <a name="csqlBuilderDelete"></a>[delete()](#sqlBuilderDelete)
+ 10. <a name="csqlBuilderStaticFields"></a>[static fields](#sqlBuilderStaticFields)
 
 <!-- -->
 
@@ -38,6 +39,10 @@ This is the "entry point" of the builder. It contains only `static` methods and 
 	Turns on or off the debug mode. In debug mode each executed sql statement is logged to the console.
 	
         SqlBuilder.setDebug(debug);
+
+ - <a name="sqlBuilderSetQuotingSymbol"></a>[setQuotingSymbol()<i class="icon-up"></i>](#csqlBuilderSetQuotingSymbol)
+
+	Sets a quoting symbol to be used in queries. Defaults to `"`.
 
  - <a name="sqlBuilderSetSqlExecutor"></a>[setSqlExecutor()<i class="icon-up"></i>](#csqlBuilderSetSqlExecutor)
 
@@ -440,6 +445,7 @@ The following methods return `this` to allow method chaining.
 
 Version number|Changes
 -|-
+v1.1.0|[`SqlBuilder.setQuotingSymbol()`](#sqlBuilderSetQuotingSymbol) added.
 v1.0.4|Imports fixed.
 v1.0.3|`client-side-common-utils` deprecated; switched to `simple-common-utils`.
 v1.0.2|1.&nbsp;Readme updated.<br>2.&nbsp; `SELECT` and `DELETE` queries weren't terminated with `;`. Fixed.

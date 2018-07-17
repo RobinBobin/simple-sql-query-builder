@@ -14,6 +14,14 @@ export default class SqlBuilder {
       SqlBuilder.debug = debug;
    }
    
+   static getQuotingSymbol() {
+      return SqlBuilder._quotingSymbol;
+   }
+   
+   static setQuotingSymbol(quotingSymbol) {
+      SqlBuilder._quotingSymbol = quotingSymbol;
+   }
+   
    static setSqlExecutor(sqlExecutor) {
       SqlBuilder.sqlExecutor = sqlExecutor;
    }

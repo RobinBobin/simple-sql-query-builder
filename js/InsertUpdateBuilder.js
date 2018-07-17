@@ -3,6 +3,7 @@ import {
    ArrayStringifier
 } from "simple-common-utils";
 import BuilderWithWhere from "./BuilderWithWhere";
+import SqlBuilder from "./SqlBuilder";
 
 export default class InsertUpdateBuilder extends BuilderWithWhere {
    constructor(insert, table) {
@@ -15,8 +16,7 @@ export default class InsertUpdateBuilder extends BuilderWithWhere {
    
    columnValue(column, value, add = true, quoteIfString = true) {
       if (add) {
-         this.pairs.push([column, value == "NULL" || !quoteIfString ?
-            value : StaticUtils.quoteIfString(value)]);
+         this.pairs.push([column, value == "NULL" || !quoteIfString ? value : StaticUtils.quoteIfString(value, SqlBuilder.getQuotingSymbol())]);
       }
       
       return this;
