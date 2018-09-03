@@ -22,6 +22,10 @@ export default class WhereBuilder {
       return this.grouping(" AND ");
    }
    
+   andNot() {
+      return this.grouping(" AND NOT ");
+   }
+   
    or() {
       return this.grouping(" OR ");
    }

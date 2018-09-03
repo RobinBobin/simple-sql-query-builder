@@ -22,6 +22,10 @@ export default class SqlBuilder {
       SqlBuilder._quotingSymbol = quotingSymbol;
    }
    
+   static setFormatOnly(formatOnly) {
+      SqlBuilder._formatOnly = formatOnly;
+   }
+   
    static setSqlExecutor(sqlExecutor) {
       SqlBuilder.sqlExecutor = sqlExecutor;
    }
@@ -31,7 +35,7 @@ export default class SqlBuilder {
          console.log(sql);
       }
       
-      return SqlBuilder.sqlExecutor ? SqlBuilder.sqlExecutor(sql) : sql;
+      return SqlBuilder.sqlExecutor && !SqlBuilder._formatOnly ? SqlBuilder.sqlExecutor(sql) : sql;
    }
    
    static createTable(name, callback, ifNotExists = true) {
@@ -56,5 +60,17 @@ export default class SqlBuilder {
       callback(whereBuilder);
       
       return SqlBuilder.executeSql(`DELETE FROM ${table}${whereBuilder};`);
+   }
+   
+   static startTransaction() {
+      return SqlBuilder.executeSql("START TRANSACTION;");
+   }
+   
+   static commit() {
+      return SqlBuilder.executeSql("COMMIT;");
+   }
+   
+   static rollback() {
+      return SqlBuilder.executeSql("ROLLBACK;");
    }
 }
