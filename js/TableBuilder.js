@@ -36,7 +36,7 @@ export default class TableBuilder {
       return new ArrayStringifier(this.entries)
          .setPrefix("CREATE TABLE" + (this.ifNotExists ?
             " IF NOT EXISTS" : "") + ` ${this.name} (`)
-         .setPostfix(");")
+         .setPostfix(")")
          .process();
    }
 }

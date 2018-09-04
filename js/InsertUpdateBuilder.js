@@ -36,12 +36,12 @@ export default class InsertUpdateBuilder extends BuilderWithWhere {
             .setPostfix(")")
             .process();
          
-         str = `INSERT INTO ${this.table}${createList(0)} VALUES${createList(1)};`;
+         str = `INSERT INTO ${this.table}${createList(0)} VALUES${createList(1)}`;
       } else {
          str = new ArrayStringifier(this.pairs)
             .setPrefix(`UPDATE ${this.table} SET `)
             .setElementProcessor(pair => `${pair[0]} = ${pair[1]}`)
-            .setPostfix(`${this.whereBuilder};`)
+            .setPostfix(`${this.whereBuilder}`)
             .process();
       }
       

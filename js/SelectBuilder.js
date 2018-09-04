@@ -63,6 +63,6 @@ export default class SelectBuilder extends BuilderWithWhere {
             .setPrefix(" ORDER BY ")
             .process()
          
-         + `${this.limitString};`;
+         + `${this.limitString}`;
    }
 }

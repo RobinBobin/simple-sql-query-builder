@@ -31,11 +31,13 @@ export default class SqlBuilder {
    }
    
    static executeSql(sql) {
+      const s = `${sql};`;
+      
       if (SqlBuilder._debug) {
-         console.log(sql);
+         console.log(s);
       }
       
-      return SqlBuilder._sqlExecutor && !SqlBuilder._formatOnly ? SqlBuilder._sqlExecutor(sql) : sql;
+      return SqlBuilder._sqlExecutor && !SqlBuilder._formatOnly ? SqlBuilder._sqlExecutor(s) : s;
    }
    
    static createTable(name, callback, ifNotExists = true) {
