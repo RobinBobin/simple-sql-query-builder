@@ -11,7 +11,7 @@ function executeSql(callback, obj) {
 
 export default class SqlBuilder {
    static setDebug(debug) {
-      SqlBuilder.debug = debug;
+      SqlBuilder._debug = debug;
    }
    
    static getQuotingSymbol() {
@@ -27,15 +27,15 @@ export default class SqlBuilder {
    }
    
    static setSqlExecutor(sqlExecutor) {
-      SqlBuilder.sqlExecutor = sqlExecutor;
+      SqlBuilder._sqlExecutor = sqlExecutor;
    }
    
    static executeSql(sql) {
-      if (SqlBuilder.debug) {
+      if (SqlBuilder._debug) {
          console.log(sql);
       }
       
-      return SqlBuilder.sqlExecutor && !SqlBuilder._formatOnly ? SqlBuilder.sqlExecutor(sql) : sql;
+      return SqlBuilder._sqlExecutor && !SqlBuilder._formatOnly ? SqlBuilder._sqlExecutor(sql) : sql;
    }
    
    static createTable(name, callback, ifNotExists = true) {
