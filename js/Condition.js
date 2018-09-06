@@ -45,6 +45,14 @@ export default class Condition {
          .setArray(array).process(), false);
    }
    
+   isNull() {
+      return this.operator("IS NULL", false)
+   }
+   
+   isNotNull() {
+      return this.operator("IS NOT NULL", false)
+   }
+   
    operator(operator, value, quoteIfString = true) {
       this.operator = operator;
       this.value = StaticUtils.safeQuoteIfString(value, quoteIfString, SqlBuilder.getQuotingSymbol());

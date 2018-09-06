@@ -2,6 +2,7 @@ import TableBuilder from "./TableBuilder";
 import InsertUpdateBuilder from "./InsertUpdateBuilder";
 import SelectBuilder from "./SelectBuilder";
 import WhereBuilder from "./WhereBuilder";
+import PG from "./flavors/PG";
 
 function executeSql(callback, obj) {
    callback(obj);
@@ -10,8 +11,20 @@ function executeSql(callback, obj) {
 }
 
 export default class SqlBuilder {
+   static PG = PG;
+   
    static setDebug(debug) {
       SqlBuilder._debug = debug;
+   }
+   
+   static setFlavor(flavor) {
+      if (SqlBuilder._flavor) {
+         SqlBuilder._flavor.reset();
+      }
+      
+      SqlBuilder._flavor = flavor;
+      
+      flavor.extend();
    }
    
    static getQuotingSymbol() {
@@ -48,8 +61,20 @@ export default class SqlBuilder {
       return executeSql(callback, new InsertUpdateBuilder(true, table));
    }
    
-   static select(callback) {
-      return executeSql(callback, new SelectBuilder());
+   static select(callback, asSubquery) {
+      const sb = new SelectBuilder();
+      
+      let result;
+      
+      if (!asSubquery) {
+         result = executeSql(callback, sb);
+      } else {
+         callback(sb);
+         
+         result = `(${sb})`;
+      }
+      
+      return result;
    }
    
    static update(table, callback) {

@@ -37,6 +37,10 @@ export default class InsertUpdateBuilder extends BuilderWithWhere {
             .process();
          
          str = `INSERT INTO ${this.table}${createList(0)} VALUES${createList(1)}`;
+         
+         if (this._finalizeToStringProcessing) {
+            str = this._finalizeToStringProcessing(str);
+         }
       } else {
          str = new ArrayStringifier(this.pairs)
             .setPrefix(`UPDATE ${this.table} SET `)
