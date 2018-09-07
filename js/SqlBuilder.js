@@ -86,18 +86,18 @@ export default class SqlBuilder {
       
       callback(whereBuilder);
       
-      return SqlBuilder.executeSql(`DELETE FROM ${table}${whereBuilder};`);
+      return SqlBuilder.executeSql(`DELETE FROM ${table}${whereBuilder}`);
    }
    
    static startTransaction() {
-      return SqlBuilder.executeSql("START TRANSACTION;");
+      return SqlBuilder.executeSql("START TRANSACTION");
    }
    
    static commit() {
-      return SqlBuilder.executeSql("COMMIT;");
+      return SqlBuilder.executeSql("COMMIT");
    }
    
    static rollback() {
-      return SqlBuilder.executeSql("ROLLBACK;");
+      return SqlBuilder.executeSql("ROLLBACK");
    }
 }
