@@ -46,11 +46,11 @@ export default class Condition {
    }
    
    isNull() {
-      return this.operator("IS NULL", false)
+      return this.operator("IS", "NULL", false)
    }
    
    isNotNull() {
-      return this.operator("IS NOT NULL", false)
+      return this.operator("IS NOT", "NULL", false)
    }
    
    operator(operator, value, quoteIfString = true) {
