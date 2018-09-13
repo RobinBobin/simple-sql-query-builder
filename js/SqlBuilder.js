@@ -81,12 +81,18 @@ export default class SqlBuilder {
       return executeSql(callback, new InsertUpdateBuilder(false, table));
    }
    
-   static delete(table, callback) {
-      const whereBuilder = new WhereBuilder();
+   static delete(table, callbackOrWhere) {
+      let where;
       
-      callback(whereBuilder);
+      if (callbackOrWhere.constructor != Function) {
+         where = callbackOrWhere;
+      } else {
+         where = new WhereBuilder();
+         
+         callbackOrWhere(where);
+      }
       
-      return SqlBuilder.executeSql(`DELETE FROM ${table}${whereBuilder}`);
+      return SqlBuilder.executeSql(`DELETE FROM ${table}${where}`);
    }
    
    static startTransaction() {

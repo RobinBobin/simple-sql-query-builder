@@ -19,6 +19,10 @@ export default class PG extends Flavor {
          return this.column(`${column}->>'${field}'`, alias);
       };
       
+      SelectBuilder.prototype.arrayLength = function(column, dimension, alias) {
+         return this.column(`array_length(${column}, ${dimension})`, alias);
+      };
+      
       // = InsertUpdateBuilder = //
       InsertUpdateBuilder.prototype.returning = function(field, add = true) {
          if (this.insert && add) {
@@ -51,6 +55,7 @@ export default class PG extends Flavor {
       
       // = SelectBuilder = //
       delete SelectBuilder.prototype.jsonField;
+      delete SelectBuilder.prototype.arrayLength;
       
       // = InsertUpdateBuilder = //
       delete InsertUpdateBuilder.prototype.returning;
