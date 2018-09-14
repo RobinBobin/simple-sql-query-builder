@@ -14,6 +14,7 @@ export default class SelectBuilder extends BuilderWithWhere {
       this.froms = [];
       this.orderBys = [];
       this.limitString = "";
+      this.offsetString = "";
    }
    
    column(column, alias) {
@@ -47,6 +48,14 @@ export default class SelectBuilder extends BuilderWithWhere {
       return this;
    }
    
+   offset(offset, add = true) {
+      if (add) {
+         this.offsetString = ` OFFSET ${offset}`;
+      }
+      
+      return this;
+   }
+   
    toString() {
       return new ArrayStringifier(this.columns)
          .setPrefix("SELECT ")
@@ -64,6 +73,8 @@ export default class SelectBuilder extends BuilderWithWhere {
             .setPrefix(" ORDER BY ")
             .process()
          
-         + `${this.limitString}`;
+         + `${this.limitString}`
+         
+         + `${this.offsetString}`;
    }
 }

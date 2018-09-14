@@ -17,11 +17,11 @@ export default class PG extends Flavor {
       
       // = SelectBuilder = //
       SelectBuilder.prototype.jsonField = function(column, field, alias) {
-         return this.column(`${column}->>'${field}'`, alias);
+         return this.column(PG.jsonField(column, field), alias);
       };
       
       SelectBuilder.prototype.arrayLength = function(column, dimension, alias) {
-         return this.column(`array_length(${column}, ${dimension})`, alias);
+         return this.column(PG.arrayLength(column, dimension), alias);
       };
       
       // = InsertUpdateBuilder = //
@@ -75,11 +75,25 @@ export default class PG extends Flavor {
          .process();
    }
    
-   static toInteger(value, isArray) {
-      return PG.toType(value, "integer", isArray);
+   static arrayLength(array, dimension) {
+      return `array_length(${array}, ${dimension})`;
    }
    
-   static toType(value, type, isArray) {
-      return `${value}::${type}${isArray ? "[]" : ""}`;
+   static jsonField(column, field) {
+      return `${column}->>'${field}'`;
+   }
+   
+   static toInteger(value, isArray, addParentheses) {
+      return PG.toType(value, "integer", isArray, addParentheses);
+   }
+   
+   static toType(value, type, isArray, addParentheses) {
+      const parts = [
+         addParentheses ? "(" : "",
+         addParentheses ? ")" : "",
+         isArray ? "[]" : ""
+      ];
+      
+      return `${parts[0]}${value}${parts[1]}::${type}${parts[2]}`;
    }
 }
