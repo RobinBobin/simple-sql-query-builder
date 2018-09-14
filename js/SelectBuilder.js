@@ -4,6 +4,7 @@ import {
 } from "simple-common-utils";
 import BuilderWithWhere from "./BuilderWithWhere";
 import FromBuilder from "./FromBuilder";
+import SqlBuilder from "./SqlBuilder";
 
 export default class SelectBuilder extends BuilderWithWhere {
    constructor() {
@@ -50,7 +51,7 @@ export default class SelectBuilder extends BuilderWithWhere {
       return new ArrayStringifier(this.columns)
          .setPrefix("SELECT ")
          .setElementProcessor(column => Array.isArray(column) ?
-            `${column[0]} AS ${column[1]}` : column)
+            `${column[0]} AS ${SqlBuilder.getColumnNameQuotingSymbol()}${column[1]}${SqlBuilder.getColumnNameQuotingSymbol()}` : column)
          .process()
          
          + new ArrayStringifier(this.froms)

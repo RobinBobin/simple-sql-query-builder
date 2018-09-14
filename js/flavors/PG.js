@@ -13,6 +13,7 @@ const arrayStringifier = new ArrayStringifier()
 export default class PG extends Flavor {
    static extend() {
       SqlBuilder.setQuotingSymbol("'");
+      SqlBuilder.setColumnNameQuotingSymbol("\"");
       
       // = SelectBuilder = //
       SelectBuilder.prototype.jsonField = function(column, field, alias) {
@@ -52,6 +53,7 @@ export default class PG extends Flavor {
    
    static reset() {
       SqlBuilder.setQuotingSymbol();
+      SqlBuilder.setColumnNameQuotingSymbol();
       
       // = SelectBuilder = //
       delete SelectBuilder.prototype.jsonField;

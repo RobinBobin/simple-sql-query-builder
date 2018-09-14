@@ -13,6 +13,8 @@ function executeSql(callback, obj) {
 export default class SqlBuilder {
    static PG = PG;
    
+   static _columnNameQuotingSymbol = "";
+   
    static setDebug(debug) {
       SqlBuilder._debug = debug;
    }
@@ -33,6 +35,14 @@ export default class SqlBuilder {
    
    static setQuotingSymbol(quotingSymbol) {
       SqlBuilder._quotingSymbol = quotingSymbol;
+   }
+   
+   static getColumnNameQuotingSymbol() {
+      return SqlBuilder._columnNameQuotingSymbol;
+   }
+   
+   static setColumnNameQuotingSymbol(columnNameQuotingSymbol) {
+      SqlBuilder._columnNameQuotingSymbol = columnNameQuotingSymbol;
    }
    
    static setFormatOnly(formatOnly) {
