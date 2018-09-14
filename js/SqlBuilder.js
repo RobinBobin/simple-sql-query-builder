@@ -42,7 +42,7 @@ export default class SqlBuilder {
    }
    
    static setColumnNameQuotingSymbol(columnNameQuotingSymbol) {
-      SqlBuilder._columnNameQuotingSymbol = columnNameQuotingSymbol;
+      SqlBuilder._columnNameQuotingSymbol = columnNameQuotingSymbol || "";
    }
    
    static setFormatOnly(formatOnly) {
