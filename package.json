@@ -1,6 +1,6 @@
 {
   "name": "simple-sql-query-builder",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "A simple SQL query builder.",
   "main": "index.js",
   "scripts": {
