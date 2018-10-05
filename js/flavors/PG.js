@@ -10,6 +10,16 @@ const arrayStringifier = new ArrayStringifier()
    .setPrefix("ARRAY[")
    .setPostfix("]");
 
+const coalesceStringifier = new ArrayStringifier()
+   .setPrefix("COALESCE(")
+   .setPostfix(")");
+
+function stringifyArray(array, stringifier) {
+   return stringifier
+      .setArray(array)
+      .process();
+}
+
 export default class PG extends Flavor {
    static extend() {
       SqlBuilder.setQuotingSymbol("'");
@@ -22,6 +32,10 @@ export default class PG extends Flavor {
       
       SelectBuilder.prototype.arrayLength = function(column, dimension, alias) {
          return this.column(PG.arrayLength(column, dimension), alias);
+      };
+      
+      SelectBuilder.prototype.coalesce = function(elements, alias) {
+         return this.column(PG.coalesce(elements), alias);
       };
       
       // = InsertUpdateBuilder = //
@@ -58,6 +72,7 @@ export default class PG extends Flavor {
       // = SelectBuilder = //
       delete SelectBuilder.prototype.jsonField;
       delete SelectBuilder.prototype.arrayLength;
+      delete SelectBuilder.prototype.coalesce;
       
       // = InsertUpdateBuilder = //
       delete InsertUpdateBuilder.prototype.returning;
@@ -70,9 +85,7 @@ export default class PG extends Flavor {
    }
    
    static array(... elements) {
-      return arrayStringifier
-         .setArray(elements)
-         .process();
+      return stringifyArray(elements, arrayStringifier);
    }
    
    static arrayLength(array, dimension) {
@@ -81,6 +94,10 @@ export default class PG extends Flavor {
    
    static jsonField(column, field) {
       return `${column}->>'${field}'`;
+   }
+   
+   static coalesce(... elements) {
+      return stringifyArray(elements, coalesceStringifier);
    }
    
    static toInteger(value, isArray, addParentheses) {
