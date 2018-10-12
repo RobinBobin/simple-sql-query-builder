@@ -35,7 +35,7 @@ export default class PG extends Flavor {
       };
       
       SelectBuilder.prototype.coalesce = function(elements, alias) {
-         return this.column(PG.coalesce(elements), alias);
+         return this.column(PG.coalesce(...elements), alias);
       };
       
       // = InsertUpdateBuilder = //
@@ -48,7 +48,7 @@ export default class PG extends Flavor {
       };
       
       InsertUpdateBuilder.prototype.columnValueAppend = function(column, elements, add = true) {
-         return this.columnValue(column, `${column} || ${PG.array(elements)}`, add, false);
+         return this.columnValue(column, `${column} || ${PG.array(...elements)}`, add, false);
       };
       
       InsertUpdateBuilder.prototype.columnValueRemove = function(column, element, add = true) {
@@ -61,7 +61,7 @@ export default class PG extends Flavor {
       
       // = Condition = //
       Condition.prototype.contains = function(... elements) {
-         return this.operator("@>", PG.array(elements), false);
+         return this.operator("@>", PG.array(...elements), false);
       };
    }
    
