@@ -26,7 +26,7 @@ export default class PG extends Flavor {
       SqlBuilder.setColumnNameQuotingSymbol("\"");
       
       // = SelectBuilder = //
-      SelectBuilder.prototype.jsonField = function(column, field, alias) {
+      SelectBuilder.prototype.jsonField = function(column, field, alias = field) {
          return this.column(PG.jsonField(column, field), alias);
       };
       
