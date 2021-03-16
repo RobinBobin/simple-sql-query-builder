@@ -37,8 +37,14 @@ This is the "entry point" of the builder. It contains only `static` methods and 
  - <a name="sqlBuilderSetDebug"></a>[setDebug()<i class="icon-up"></i>](#csqlBuilderSetDebug)
 	
 	Turns on or off the debug mode. In debug mode each executed sql statement is logged to the console.
-	
+
         SqlBuilder.setDebug(debug);
+
+    On the other hand each sql-executing method receives parameter `debug` which defaults to `false`. Setting it to `true` will have exactly the same result as:
+
+        SqlBuilder.setDebug(true);
+        SqlBuilder.executeSql(...);
+        SqlBuilder.setDebug(false);
 
  - <a name="sqlBuilderSetQuotingSymbol"></a>[setQuotingSymbol()<i class="icon-up"></i>](#csqlBuilderSetQuotingSymbol)
 
@@ -446,6 +452,7 @@ The following methods return `this` to allow method chaining.
 
 Version number|Changes
 -|-
+v1.9.0|Parameter `debug` is added to each sql-executing method.
 v1.8.0|`Condition.like()` added.
 v1.7.0|1.&nbsp;`TableBuilder.real()` added.<br>2.&nbsp;`SqlBuilderOptions` added to remove require cycles.
 v1.1.0|[`SqlBuilder.setQuotingSymbol()`](#sqlBuilderSetQuotingSymbol) added.

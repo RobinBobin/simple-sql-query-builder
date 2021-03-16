@@ -5,17 +5,17 @@ import TableBuilder from "./TableBuilder";
 import WhereBuilder from "./WhereBuilder";
 import PG from "./flavors/PG";
 
-function executeSql(callback, obj) {
+function executeSql(callback, obj, debug = false) {
    callback(obj);
    
-   return SqlBuilder.executeSql(obj.toString());
+   return SqlBuilder.executeSql(obj.toString(), debug);
 }
 
 export default class SqlBuilder {
    static PG = PG;
    
    static setDebug(debug) {
-      SqlBuilder._debug = debug;
+      SqlBuilder.__debug = debug;
    }
    
    static setFlavor(flavor) {
@@ -52,31 +52,31 @@ export default class SqlBuilder {
       SqlBuilder._sqlExecutor = sqlExecutor;
    }
    
-   static executeSql(sql) {
+   static executeSql(sql, debug = false) {
       const s = `${sql};`;
       
-      if (SqlBuilder._debug) {
+      if (SqlBuilder.__debug || debug) {
          console.log(s);
       }
       
       return SqlBuilder._sqlExecutor && !SqlBuilder._formatOnly ? SqlBuilder._sqlExecutor(s) : s;
    }
    
-   static createTable(name, callback, ifNotExists = true) {
-      return executeSql(callback, new TableBuilder(name, ifNotExists));
+   static createTable(name, callback, ifNotExists = true, debug = false) {
+      return executeSql(callback, new TableBuilder(name, ifNotExists), debug);
    }
    
-   static insert(table, callback) {
-      return executeSql(callback, new InsertUpdateBuilder(true, table));
+   static insert(table, callback, debug = false) {
+      return executeSql(callback, new InsertUpdateBuilder(true, table), debug);
    }
    
-   static select(callback, asSubquery) {
+   static select(callback, asSubquery, debug = false) {
       const sb = new SelectBuilder();
       
       let result;
       
       if (!asSubquery) {
-         result = executeSql(callback, sb);
+         result = executeSql(callback, sb, debug);
       } else {
          callback(sb);
          
@@ -86,11 +86,11 @@ export default class SqlBuilder {
       return result;
    }
    
-   static update(table, callback) {
-      return executeSql(callback, new InsertUpdateBuilder(false, table));
+   static update(table, callback, debug = false) {
+      return executeSql(callback, new InsertUpdateBuilder(false, table), debug);
    }
    
-   static delete(table, callbackOrWhere) {
+   static delete(table, callbackOrWhere, debug = false) {
       let where;
       
       if (callbackOrWhere.constructor != Function) {
@@ -101,18 +101,18 @@ export default class SqlBuilder {
          callbackOrWhere(where);
       }
       
-      return SqlBuilder.executeSql(`DELETE FROM ${table}${where}`);
+      return SqlBuilder.executeSql(`DELETE FROM ${table}${where}`, debug);
    }
    
-   static startTransaction() {
-      return SqlBuilder.executeSql("START TRANSACTION");
+   static startTransaction(debug = false) {
+      return SqlBuilder.executeSql("START TRANSACTION", debug);
    }
    
-   static commit() {
-      return SqlBuilder.executeSql("COMMIT");
+   static commit(debug = false) {
+      return SqlBuilder.executeSql("COMMIT", debug);
    }
    
-   static rollback() {
-      return SqlBuilder.executeSql("ROLLBACK");
+   static rollback(debug = false) {
+      return SqlBuilder.executeSql("ROLLBACK", debug);
    }
 }
