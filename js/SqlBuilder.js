@@ -1,6 +1,7 @@
-import TableBuilder from "./TableBuilder";
 import InsertUpdateBuilder from "./InsertUpdateBuilder";
 import SelectBuilder from "./SelectBuilder";
+import SqlBuilderOptions from "./SqlBuilderOptions";
+import TableBuilder from "./TableBuilder";
 import WhereBuilder from "./WhereBuilder";
 import PG from "./flavors/PG";
 
@@ -12,8 +13,6 @@ function executeSql(callback, obj) {
 
 export default class SqlBuilder {
    static PG = PG;
-   
-   static _columnNameQuotingSymbol = "";
    
    static setDebug(debug) {
       SqlBuilder._debug = debug;
@@ -30,19 +29,19 @@ export default class SqlBuilder {
    }
    
    static getQuotingSymbol() {
-      return SqlBuilder._quotingSymbol;
+      return SqlBuilderOptions.getQuotingSymbol();
    }
    
    static setQuotingSymbol(quotingSymbol) {
-      SqlBuilder._quotingSymbol = quotingSymbol;
+      SqlBuilderOptions.setQuotingSymbol(quotingSymbol);
    }
    
    static getColumnNameQuotingSymbol() {
-      return SqlBuilder._columnNameQuotingSymbol;
+      return SqlBuilderOptions.getColumnNameQuotingSymbol();
    }
    
    static setColumnNameQuotingSymbol(columnNameQuotingSymbol) {
-      SqlBuilder._columnNameQuotingSymbol = columnNameQuotingSymbol || "";
+      SqlBuilderOptions.setColumnNameQuotingSymbol(columnNameQuotingSymbol);
    }
    
    static setFormatOnly(formatOnly) {

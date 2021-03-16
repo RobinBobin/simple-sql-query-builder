@@ -12,14 +12,6 @@ export default class TableBuilder {
       this.entries = [];
    }
    
-   integer(name) {
-      return this.column(name, "INTEGER");
-   }
-   
-   text(name) {
-      return this.column(name, "TEXT");
-   }
-   
    blob(name) {
       return this.column(name, "BLOB");
    }
@@ -28,8 +20,16 @@ export default class TableBuilder {
       return StaticUtils.pushAndReturnElement(this.entries, new Column(name, type));
    }
    
-   unique(callback) {
-      callback(StaticUtils.pushAndReturnElement(this.entries, new UniqueBuilder()));
+   integer(name) {
+      return this.column(name, "INTEGER");
+   }
+   
+   real(name) {
+      return this.column(name, "REAL");
+   }
+   
+   text(name) {
+      return this.column(name, "TEXT");
    }
    
    toString() {
@@ -38,5 +38,9 @@ export default class TableBuilder {
             " IF NOT EXISTS" : "") + ` ${this.name} (`)
          .setPostfix(")")
          .process();
+   }
+   
+   unique(callback) {
+      callback(StaticUtils.pushAndReturnElement(this.entries, new UniqueBuilder()));
    }
 }

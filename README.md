@@ -150,7 +150,7 @@ This is the "entry point" of the builder. It contains only `static` methods and 
                 type: "REAL")
             .notNull();
 	
-	There are shorthands for the `INTEGER`, `TEXT` and `BLOB` types:
+	There are shorthands for the `BLOB` `INTEGER`, `REAL` and `TEXT` types:
 	
         tb.integer("rowid").primary();
         tb.text("comment").notNull();
@@ -445,6 +445,7 @@ The following methods return `this` to allow method chaining.
 
 Version number|Changes
 -|-
+v1.7.0|1.&nbsp;`TableBuilder.real()` added.<br>2.&nbsp;`SqlBuilderOptions` added to remove require cycles.
 v1.1.0|[`SqlBuilder.setQuotingSymbol()`](#sqlBuilderSetQuotingSymbol) added.
 v1.0.4|Imports fixed.
 v1.0.3|`client-side-common-utils` deprecated; switched to `simple-common-utils`.

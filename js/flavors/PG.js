@@ -1,7 +1,7 @@
 import { ArrayStringifier } from "simple-common-utils";
 
 import Flavor from "./Flavor";
-import SqlBuilder from "../SqlBuilder";
+import SqlBuilderOptions from "../SqlBuilderOptions";
 import SelectBuilder from "../SelectBuilder";
 import InsertUpdateBuilder from "../InsertUpdateBuilder";
 import Condition from "../Condition";
@@ -22,8 +22,8 @@ function stringifyArray(array, stringifier) {
 
 export default class PG extends Flavor {
    static extend() {
-      SqlBuilder.setQuotingSymbol("'");
-      SqlBuilder.setColumnNameQuotingSymbol("\"");
+      SqlBuilderOptions.setQuotingSymbol("'");
+      SqlBuilderOptions.setColumnNameQuotingSymbol("\"");
       
       // = SelectBuilder = //
       SelectBuilder.prototype.jsonField = function(column, field, alias = field) {
@@ -66,8 +66,8 @@ export default class PG extends Flavor {
    }
    
    static reset() {
-      SqlBuilder.setQuotingSymbol();
-      SqlBuilder.setColumnNameQuotingSymbol();
+      SqlBuilderOptions.setQuotingSymbol();
+      SqlBuilderOptions.setColumnNameQuotingSymbol();
       
       // = SelectBuilder = //
       delete SelectBuilder.prototype.jsonField;

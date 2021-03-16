@@ -2,7 +2,7 @@ import {
    StaticUtils,
    ArrayStringifier
 } from "simple-common-utils";
-import SqlBuilder from "./SqlBuilder";
+import SqlBuilderOptions from "./SqlBuilderOptions";
 
 export default class Condition {
    constructor(column, whereBuilder) {
@@ -55,7 +55,7 @@ export default class Condition {
    
    operator(operator, value, quoteIfString = true) {
       this.operator = operator;
-      this.value = StaticUtils.safeQuoteIfString(value, quoteIfString, SqlBuilder.getQuotingSymbol());
+      this.value = StaticUtils.safeQuoteIfString(value, quoteIfString, SqlBuilderOptions.getQuotingSymbol());
       
       return this.whereBuilder;
    }
