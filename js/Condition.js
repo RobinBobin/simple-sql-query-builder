@@ -14,24 +14,12 @@ export default class Condition {
       return this.operator("=", value, quoteIfString);
    }
    
-   ne(value, quoteIfString = true) {
-      return this.operator("!=", value, quoteIfString);
-   }
-   
    g(value, quoteIfString = true) {
       return this.operator(">", value, quoteIfString);
    }
    
    ge(value, quoteIfString = true) {
       return this.operator(">=", value, quoteIfString);
-   }
-   
-   l(value, quoteIfString = true) {
-      return this.operator("<", value, quoteIfString);
-   }
-   
-   le(value, quoteIfString = true) {
-      return this.operator("<=", value, quoteIfString);
    }
    
    in(array) {
@@ -45,12 +33,28 @@ export default class Condition {
          .setArray(array).process(), false);
    }
    
+   isNotNull() {
+      return this.operator("IS NOT", "NULL", false)
+   }
+   
    isNull() {
       return this.operator("IS", "NULL", false)
    }
    
-   isNotNull() {
-      return this.operator("IS NOT", "NULL", false)
+   l(value, quoteIfString = true) {
+      return this.operator("<", value, quoteIfString);
+   }
+   
+   le(value, quoteIfString = true) {
+      return this.operator("<=", value, quoteIfString);
+   }
+   
+   like(value) {
+     return this.operator("LIKE", `%${value}%`);
+   }
+   
+   ne(value, quoteIfString = true) {
+      return this.operator("!=", value, quoteIfString);
    }
    
    operator(operator, value, quoteIfString = true) {

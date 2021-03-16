@@ -368,6 +368,7 @@ The following methods return `this` to allow method chaining.
     l()|<
     le()|<=
     in()|IN
+    like()|LIKE
 
 #### <a name="selectBuilder"></a>[SelectBuilder<i class="icon-up"></i>](#cselectBuilder)
 
@@ -445,6 +446,7 @@ The following methods return `this` to allow method chaining.
 
 Version number|Changes
 -|-
+v1.8.0|`Condition.like()` added.
 v1.7.0|1.&nbsp;`TableBuilder.real()` added.<br>2.&nbsp;`SqlBuilderOptions` added to remove require cycles.
 v1.1.0|[`SqlBuilder.setQuotingSymbol()`](#sqlBuilderSetQuotingSymbol) added.
 v1.0.4|Imports fixed.
