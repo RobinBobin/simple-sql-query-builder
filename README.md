@@ -376,6 +376,12 @@ The following methods return `this` to allow method chaining.
     in()|IN
     like()|LIKE
 
+<a name="conditionLike"></a>`like()` has 2 additional parameters, defaulting to `false`: `startsWith` and `endsWith`. So
+
+	like(pattern) -> LIKE `%${pattern}%`
+	like(pattern, true) -> LIKE `${pattern}%`
+	like(pattern, false, true) -> LIKE `%${pattern}`
+
 #### <a name="selectBuilder"></a>[SelectBuilder<i class="icon-up"></i>](#cselectBuilder)
 
 The following methods return `this` to allow method chaining.
@@ -452,6 +458,7 @@ The following methods return `this` to allow method chaining.
 
 Version number|Changes
 -|-
+v1.9.1|`Condition.like()`: parameters `startsWith` / `endsWith` [added](#conditionLike).
 v1.9.0|Parameter `debug` is added to each sql-executing method.
 v1.8.0|`Condition.like()` added.
 v1.7.0|1.&nbsp;`TableBuilder.real()` added.<br>2.&nbsp;`SqlBuilderOptions` added to remove require cycles.
