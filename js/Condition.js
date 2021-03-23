@@ -49,7 +49,7 @@ export default class Condition {
       return this.operator("<=", value, quoteIfString);
    }
    
-   like(value, startsWith = true, endsWith = true) {
+   like(value, startsWith = false, endsWith = false) {
      return this.operator("LIKE", `${startsWith ? "" : "%"}${value}${endsWith ? "" : "%"}`);
    }
    

@@ -458,6 +458,7 @@ The following methods return `this` to allow method chaining.
 
 Version number|Changes
 -|-
+v1.9.2|`Condition.like()` parameter default values were invalid.
 v1.9.1|`Condition.like()`: parameters `startsWith` / `endsWith` [added](#conditionLike).
 v1.9.0|Parameter `debug` is added to each sql-executing method.
 v1.8.0|`Condition.like()` added.
