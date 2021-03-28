@@ -21,54 +21,31 @@ This is the "entry point" of the builder. It contains only `static` methods and 
 
     import SqlBuilder from "simple-sql-query-builder";
 
- 1. <a name="csqlBuilderSetDebug"></a> [setDebug()](#sqlBuilderSetDebug)
- 2. <a name="csqlBuilderSetQuotingSymbol"></a>[setQuotingSymbol()](#sqlBuilderSetQuotingSymbol)
- 3. <a name="csqlBuilderSetSqlExecutor"></a>[setSqlExecutor()](#sqlBuilderSetSqlExecutor)
- 4. <a name="csqlBuilderExecuteSql"></a>[executeSql()](#sqlBuilderExecuteSql)
- 5. <a name="csqlBuilderCreateTable"></a>[createTable()](#sqlBuilderCreateTable)
+ 1. <a name="csqlBuilderBeginTransaction"></a>[beginTransaction()](#sqlBuilderBeginTransaction)
+ 2. <a name="csqlBuilderCommit"></a>[commit()](#sqlBuilderCommit)
+ 3. <a name="csqlBuilderCreateTable"></a>[createTable()](#sqlBuilderCreateTable)
+ 4. <a name="csqlBuilderDelete"></a>[delete()](#sqlBuilderDelete)
+ 5. <a name="csqlBuilderExecuteSql"></a>[executeSql()](#sqlBuilderExecuteSql)
  6. <a name="csqlBuilderInsert"></a>[insert()](#sqlBuilderInsert)
- 7. <a name="csqlBuilderSelect"></a>[select()](#sqlBuilderSelect)
- 8. <a name="csqlBuilderUpdate"></a>[update()](#sqlBuilderUpdate)
- 9. <a name="csqlBuilderDelete"></a>[delete()](#sqlBuilderDelete)
- 10. <a name="csqlBuilderStaticFields"></a>[static fields](#sqlBuilderStaticFields)
+ 7. <a name="csqlBuilderRollback"></a>[rollback()](#sqlBuilderRollback)
+ 8. <a name="csqlBuilderSelect"></a>[select()](#sqlBuilderSelect)
+ 9. <a name="csqlBuilderSetDebug"></a>[setDebug()](#sqlBuilderSetDebug)
+ 10. <a name="csqlBuilderSetFormatOnly"></a>[setFormatOnly()](#sqlBuilderSetFormatOnly)
+ 11. <a name="csqlBuilderSetQuotingSymbol"></a>[setQuotingSymbol()](#sqlBuilderSetQuotingSymbol)
+ 12. <a name="csqlBuilderSetSqlExecutor"></a>[setSqlExecutor()](#sqlBuilderSetSqlExecutor)
+ 13. <a name="csqlBuilderStartTransaction"></a>[startTransaction()](#sqlBuilderStartTransaction)
+ 14. <a name="csqlBuilderUpdate"></a>[update()](#sqlBuilderUpdate)
+ 15. <a name="csqlBuilderStaticFields"></a>[static fields](#sqlBuilderStaticFields)
 
 <!-- -->
 
- - <a name="sqlBuilderSetDebug"></a>[setDebug()<i class="icon-up"></i>](#csqlBuilderSetDebug)
-	
-	Turns on or off the debug mode. In debug mode each executed sql statement is logged to the console.
+ - <a name="sqlBuilderBeginTransaction"></a>[beginTransaction()<i class="icon-up"></i>](#csqlBuilderBeginTransaction)
 
-        SqlBuilder.setDebug(debug);
+		SqlBuilder.executeSql("BEGIN TRANSACTION");
 
-    On the other hand each sql-executing method receives parameter `debug` which defaults to `false`. Setting it to `true` will have exactly the same result as:
+ - <a name="sqlBuilderCommit"></a>[commit()<i class="icon-up"></i>](#csqlBuilderCommit)
 
-        SqlBuilder.setDebug(true);
-        SqlBuilder.executeSql(...);
-        SqlBuilder.setDebug(false);
-
- - <a name="sqlBuilderSetQuotingSymbol"></a>[setQuotingSymbol()<i class="icon-up"></i>](#csqlBuilderSetQuotingSymbol)
-
-	Sets a quoting symbol to be used in queries. Defaults to `"`.
-
- - <a name="sqlBuilderSetSqlExecutor"></a>[setSqlExecutor()<i class="icon-up"></i>](#csqlBuilderSetSqlExecutor)
-
-	Sets a function to be used to execute sql statements.
-	
-        import SQLite from "react-native-sqlite-storage";
-        
-        ...
-        
-        const db = await SQLite.openDatabase(...);
-        
-        SqlBuilder.setSqlExecutor(db.executeSql.bind(db));
-
- - <a name="sqlBuilderExecuteSql"></a>[executeSql()<i class="icon-up"></i>](#csqlBuilderExecuteSql)
-	
-	Executes an sql statement by invoking a function set by `setSqlExecutor()`. It returns the result of that function invocation or simply the passed sql statement if `setSqlExecutor()` hasn't been called.
-	
-	The result of invoking this method is returned from the CRUD methods.
-	
-		SqlBuilder.executeSql("some sql code);
+		SqlBuilder.executeSql("COMMIT");
 
  - <a name="sqlBuilderCreateTable"></a>[createTable()<i class="icon-up"></i>](#csqlBuilderCreateTable)
 	
@@ -88,6 +65,23 @@ This is the "entry point" of the builder. It contains only `static` methods and 
         
         SqlBuilder.createTable(name, callback, ifNotExists);
 
+ - <a name="sqlBuilderDelete"></a>[delete()<i class="icon-up"></i>](#csqlBuilderDelete)
+    
+    Deletes rows using [WhereBuilder](#whereBuilder).
+    
+        const table = "journeys";
+        const callback = wb => wb.column("rowid").e(rowid);
+        
+        SqlBuilder.delete(table, callback);
+
+ - <a name="sqlBuilderExecuteSql"></a>[executeSql()<i class="icon-up"></i>](#csqlBuilderExecuteSql)
+	
+	Executes an sql statement by invoking a function set by [`setSqlExecutor()`](#sqlBuilderSetSqlExecutor). It returns the result of that function invocation or simply the passed sql statement if an executor hasn't been set.
+	
+	The result of invoking this method is returned from the CRUD methods.
+	
+		SqlBuilder.executeSql("some sql code");
+
  - <a name="sqlBuilderInsert"></a>[insert()<i class="icon-up"></i>](#csqlBuilderInsert)
     
     Inserts a row using [InsertUpdateBuilder](#insertUpdateBuilder).
@@ -102,6 +96,10 @@ This is the "entry point" of the builder. It contains only `static` methods and 
         
         SqlBuilder.insert(table, callback);
 
+ - <a name="sqlBuilderRollback"></a>[rollback()<i class="icon-up"></i>](#csqlBuilderRollback)
+
+		SqlBuilder.executeSql("ROLLBACK");
+
  - <a name="sqlBuilderSelect"></a>[select()<i class="icon-up"></i>](#csqlBuilderSelect)
     
     Selects rows using [SelectBuilder](#selectBuilder).
@@ -110,6 +108,42 @@ This is the "entry point" of the builder. It contains only `static` methods and 
             .column("rowid")
             .column("*")
             .from("weights"));
+
+ - <a name="sqlBuilderSetDebug"></a>[setDebug()<i class="icon-up"></i>](#csqlBuilderSetDebug)
+	
+	Turns on or off the debug mode. In debug mode each executed sql statement is logged to the console.
+
+        SqlBuilder.setDebug(debug);
+
+    On the other hand each sql-executing method receives parameter `debug` which defaults to `false`. Setting it to `true` will have exactly the same result as:
+
+        SqlBuilder.setDebug(true);
+        SqlBuilder.executeSql(...);
+        SqlBuilder.setDebug(false);
+
+ - <a name="sqlBuilderSetFormatOnly"></a>[setFormatOnly()<i class="icon-up"></i>](#csqlBuilderSetFormatOnly)
+
+	If `true` is passed, [`executeSql()`](#sqlBuilderExecuteSql) behaves as if an executor hasn't been set.
+
+ - <a name="sqlBuilderSetQuotingSymbol"></a>[setQuotingSymbol()<i class="icon-up"></i>](#csqlBuilderSetQuotingSymbol)
+
+	Sets a quoting symbol to be used in queries. Defaults to `"`.
+
+ - <a name="sqlBuilderSetSqlExecutor"></a>[setSqlExecutor()<i class="icon-up"></i>](#csqlBuilderSetSqlExecutor)
+
+	Sets a function to be used to execute sql statements.
+	
+        import SQLite from "react-native-sqlite-storage";
+        
+        ...
+        
+        const db = await SQLite.openDatabase(...);
+        
+        SqlBuilder.setSqlExecutor(db.executeSql.bind(db));
+
+ - <a name="sqlBuilderStartTransaction"></a>[startTransaction()<i class="icon-up"></i>](#csqlBuilderStartTransaction)
+
+		SqlBuilder.executeSql("START TRANSACTION");
 
  - <a name="sqlBuilderUpdate"></a>[update()<i class="icon-up"></i>](#csqlBuilderUpdate)
     
@@ -122,15 +156,6 @@ This is the "entry point" of the builder. It contains only `static` methods and 
             .where(wb => wb.column("rowid").e(image.rowid));
         
         SqlBuilder.update(table, callback);
-
- - <a name="sqlBuilderDelete"></a>[delete()<i class="icon-up"></i>](#csqlBuilderDelete)
-    
-    Deletes rows using [WhereBuilder](#whereBuilder).
-    
-        const table = "journeys";
-        const callback = wb => wb.column("rowid").e(rowid);
-        
-        SqlBuilder.delete(table, callback);
 
  - <a name="sqlBuilderStaticFields"></a>[static fields<i class="icon-up"></i>](#csqlBuilderStaticFields)
     
@@ -458,6 +483,7 @@ The following methods return `this` to allow method chaining.
 
 Version number|Changes
 -|-
+v1.10.0|1. `SqlBuilder.beginTransaction()` added.<br>2. Several `SqlBuilder` documented.
 v1.9.2|`Condition.like()` parameter default values were invalid.
 v1.9.1|`Condition.like()`: parameters `startsWith` / `endsWith` [added](#conditionLike).
 v1.9.0|Parameter `debug` is added to each sql-executing method.
