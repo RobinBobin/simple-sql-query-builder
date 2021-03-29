@@ -3,17 +3,8 @@ import SelectBuilder from "./SelectBuilder";
 import SqlBuilderOptions from "./SqlBuilderOptions";
 import TableBuilder from "./TableBuilder";
 import WhereBuilder from "./WhereBuilder";
-import PG from "./flavors/PG";
-
-function executeSql(callback, obj, debug = false) {
-  callback(obj);
-  
-  return SqlBuilder.executeSql(obj.toString(), debug);
-}
 
 export default class SqlBuilder {
-  static PG = PG;
-  
   static beginTransaction(debug = false) {
     return SqlBuilder.executeSql("BEGIN TRANSACTION", debug);
   }
@@ -23,7 +14,7 @@ export default class SqlBuilder {
   }
   
   static createTable(name, callback, ifNotExists = true, debug = false) {
-    return executeSql(callback, new TableBuilder(name, ifNotExists), debug);
+    return SqlBuilder.prepareAndExecute(callback, new TableBuilder(name, ifNotExists), debug);
   }
   
   static delete(table, callbackOrWhere, debug = false) {
@@ -59,7 +50,13 @@ export default class SqlBuilder {
   }
   
   static insert(table, callback, debug = false) {
-    return executeSql(callback, new InsertUpdateBuilder(true, table), debug);
+    return SqlBuilder.prepareAndExecute(callback, new InsertUpdateBuilder(true, table), debug);
+  }
+  
+  static prepareAndExecute(callback, obj, debug = false) {
+    callback(obj);
+    
+    return SqlBuilder.executeSql(obj.toString(), debug);
   }
   
   static rollback(debug = false) {
@@ -72,7 +69,7 @@ export default class SqlBuilder {
     let result;
     
     if (!asSubquery) {
-      result = executeSql(callback, sb, debug);
+      result = SqlBuilder.prepareAndExecute(callback, sb, debug);
     } else {
       callback(sb);
       
@@ -117,6 +114,6 @@ export default class SqlBuilder {
   }
   
   static update(table, callback, debug = false) {
-    return executeSql(callback, new InsertUpdateBuilder(false, table), debug);
+    return SqlBuilder.prepareAndExecute(callback, new InsertUpdateBuilder(false, table), debug);
   }
 }

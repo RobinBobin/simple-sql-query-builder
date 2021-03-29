@@ -207,15 +207,19 @@ This is the "entry point" of the builder. It contains only `static` methods and 
 
 The following methods return `this` to allow method chaining.
 
- - primary()
-	
-	Adds `PRIMARY KEY` to this column definition.
+ - <a name="columnDefault"></a>default()
+
+	Adds `DEFAULT value` to this column definition. The `value` is quoted if it's a string.
 
  - foreign()
 
 	Adds `REFERENCES tableName(columnName)` to this column definition.
 	
 		tb.integer("type").foreign("tableName", "columnName");
+
+ - notNull()
+	
+	Adds `NOT NULL` to this column definition.
 
  - onDelete()
 	
@@ -225,9 +229,9 @@ The following methods return `this` to allow method chaining.
             .foreign("tableName", "column name")
             .onDelete("action");
 
- - notNull()
+ - primary()
 	
-	Adds `NOT NULL` to this column definition.
+	Adds `PRIMARY KEY` to this column definition.	
 
 #### <a name="uniqueBuilder"></a>[UniqueBuilder<i class="icon-up"></i>](#cuniqueBuilder)
 
@@ -483,7 +487,8 @@ The following methods return `this` to allow method chaining.
 
 Version number|Changes
 -|-
-v1.10.0|1. `SqlBuilder.beginTransaction()` added.<br>2. Several `SqlBuilder` documented.
+v1.11.0|1. The SQLite flavor is added.<br>2. [`Column.default()`](#columnDefault) is added.
+v1.10.0|1. `SqlBuilder.beginTransaction()` added.<br>2. Several `SqlBuilder` methods documented.
 v1.9.2|`Condition.like()` parameter default values were invalid.
 v1.9.1|`Condition.like()`: parameters `startsWith` / `endsWith` [added](#conditionLike).
 v1.9.0|Parameter `debug` is added to each sql-executing method.

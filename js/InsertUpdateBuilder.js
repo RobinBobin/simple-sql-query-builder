@@ -42,8 +42,16 @@ export default class InsertUpdateBuilder extends BuilderWithWhere {
             str = this._finalizeToStringProcessing(str);
          }
       } else {
+         let prefix = "UPDATE";
+         
+         if (this.table) {
+            prefix += ` ${this.table}`;
+         }
+         
+         prefix += " SET ";
+         
          str = new ArrayStringifier(this.pairs)
-            .setPrefix(`UPDATE ${this.table} SET `)
+            .setPrefix(prefix)
             .setElementProcessor(pair => `${pair[0]} = ${pair[1]}`)
             .setPostfix(`${this.whereBuilder}`)
             .process();
