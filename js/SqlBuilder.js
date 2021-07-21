@@ -17,7 +17,7 @@ export default class SqlBuilder {
     return SqlBuilder.prepareAndExecute(callback, new TableBuilder(name, ifNotExists), debug);
   }
   
-  static delete(table, callbackOrWhere, debug = false) {
+  static delete(table, callbackOrWhere = "", debug = false) {
     let where;
     
     if (callbackOrWhere.constructor != Function) {

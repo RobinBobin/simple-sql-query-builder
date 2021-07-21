@@ -1,25 +1,25 @@
 {
-  "name": "simple-sql-query-builder",
-  "version": "1.11.0",
-  "description": "A simple SQL query builder.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "author": "Ruben Shalimov <r_shalimov@inbox.ru>",
+  "bugs": {
+    "url": "https://github.com/RobinBobin/simple-sql-query-builder/issues"
   },
   "dependencies": {
     "simple-common-utils": "latest"
   },
+  "description": "A simple SQL query builder.",
+  "homepage": "https://github.com/RobinBobin/simple-sql-query-builder#readme",
+  "keywords": [
+    "sql query builder"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "simple-sql-query-builder",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/RobinBobin/simple-sql-query-builder.git"
   },
-  "keywords": [
-    "sql query builder"
-  ],
-  "author": "Ruben Shalimov <r_shalimov@inbox.ru>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/RobinBobin/simple-sql-query-builder/issues"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "homepage": "https://github.com/RobinBobin/simple-sql-query-builder#readme"
+  "version": "1.12.0"
 }

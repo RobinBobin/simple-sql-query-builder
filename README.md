@@ -487,6 +487,7 @@ The following methods return `this` to allow method chaining.
 
 Version number|Changes
 -|-
+v1.12.0|1. SQLite tables can be created without rowids.<br>2. `SqlBuilder.delete()`: `callbackOrWhere` defaults to `""`.
 v1.11.0|1. The SQLite flavor is added.<br>2. [`Column.default()`](#columnDefault) is added.
 v1.10.0|1. `SqlBuilder.beginTransaction()` added.<br>2. Several `SqlBuilder` methods documented.
 v1.9.2|`Condition.like()` parameter default values were invalid.
