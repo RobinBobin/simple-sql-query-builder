@@ -487,6 +487,7 @@ The following methods return `this` to allow method chaining.
 
 Version number|Changes
 -|-
+v1.13.0|`SQLite.upsert()`: legacy implementation for SQLite versions that don't support `INSERT ... ON CONFLICT DO ...`.
 v1.12.0|1. SQLite tables can be created without rowids.<br>2. `SqlBuilder.delete()`: `callbackOrWhere` defaults to `""`.
 v1.11.0|1. The SQLite flavor is added.<br>2. [`Column.default()`](#columnDefault) is added.
 v1.10.0|1. `SqlBuilder.beginTransaction()` added.<br>2. Several `SqlBuilder` methods documented.
