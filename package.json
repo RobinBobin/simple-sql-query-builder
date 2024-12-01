@@ -4,22 +4,34 @@
     "url": "https://github.com/RobinBobin/simple-sql-query-builder/issues"
   },
   "dependencies": {
-    "simple-common-utils": "latest"
+    "@types/react-native-sqlite-storage": "^6.0.5",
+    "radashi": "^12.3.0",
+    "simple-common-utils": "^3.1.4",
+    "type-fest": "^4.29.1"
   },
   "description": "A simple SQL query builder.",
+  "devDependencies": {
+    "@robinbobin/ts-eslint-prettier": "^2.0.0",
+    "eslint": "^9.16.0",
+    "prettier": "^3.4.1",
+    "typescript": "^5.7.2"
+  },
+  "files": [
+    "js",
+    "src"
+  ],
   "homepage": "https://github.com/RobinBobin/simple-sql-query-builder#readme",
   "keywords": [
+    "react native",
     "sql query builder"
   ],
   "license": "MIT",
-  "main": "index.js",
+  "main": "js/src/index.js",
   "name": "simple-sql-query-builder",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/RobinBobin/simple-sql-query-builder.git"
-  },
+  "packageManager": "pnpm@9.14.4+sha512.c8180b3fbe4e4bca02c94234717896b5529740a6cbadf19fa78254270403ea2f27d4e1d46a08a0f56c89b63dc8ebfd3ee53326da720273794e6200fcf0d184ab",
+  "repository": "github:RobinBobin/simple-sql-query-builder.git",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepack": "./prepack.sh"
   },
-  "version": "1.13.0"
+  "version": "2.0.0"
 }
