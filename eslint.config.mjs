@@ -1,15 +1,15 @@
 import config from '@robinbobin/ts-eslint-prettier/eslint.config.mjs'
 
-import { preferReadonlyParameterTypes } from './eslintOptions/preferReadonlyParameterTypes.mjs'
+import { ts } from './eslintRuleOptions/index.mjs'
 
 export default [
   ...config,
   {
-    ignores: ['legacy']
-  },
-  {
     rules: {
-      ...preferReadonlyParameterTypes(true)
+      '@typescript-eslint/prefer-readonly-parameter-types': [
+        'error',
+        ts.preferReadonlyParameterTypes
+      ]
     }
   }
 ]

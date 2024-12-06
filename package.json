@@ -7,16 +7,17 @@
     "@types/react-native-sqlite-storage": "^6.0.5",
     "radashi": "^12.3.0",
     "simple-common-utils": "^3.1.4",
-    "type-fest": "^4.29.1"
+    "type-fest": "^4.30.0"
   },
   "description": "A simple SQL query builder.",
   "devDependencies": {
-    "@robinbobin/ts-eslint-prettier": "^2.0.0",
+    "@robinbobin/ts-eslint-prettier": "^2.1.0",
     "eslint": "^9.16.0",
-    "prettier": "^3.4.1",
+    "prettier": "^3.4.2",
     "typescript": "^5.7.2"
   },
   "files": [
+    "eslintRuleOptions",
     "js",
     "src"
   ],
@@ -33,5 +34,5 @@
   "scripts": {
     "prepack": "./prepack.sh"
   },
-  "version": "2.0.0"
+  "version": "2.0.1"
 }
