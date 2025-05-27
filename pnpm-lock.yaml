@@ -13,7 +13,7 @@ importers:
         version: 6.0.5
       radashi:
         specifier: ^12.3.0
-        version: 12.3.0
+        version: 12.5.1
       simple-common-utils:
         specifier: ^3.1.4
         version: 3.1.4
@@ -589,8 +589,8 @@ packages:
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
-  radashi@12.3.0:
-    resolution: {integrity: sha512-ViMnMTF4g+wqL1pp4sMJOEXFydvB+6EsJJOv9/PBVO1lrKbeYNay2ePd6SGrbaBKf1MH+ZpGFx0EwGTElVCWHw==}
+  radashi@12.5.1:
+    resolution: {integrity: sha512-gcznSPJe2SCIuWf6QTqSHZRyMQU6hnUk4NpR7LmmNmdK1BGOXdnHuNIO4VzNw+feu0Wsnv/AYmxqwUYDBatPMA==}
     engines: {node: '>=16.0.0'}
 
   resolve-from@4.0.0:
@@ -1298,7 +1298,7 @@ snapshots:
 
   queue-microtask@1.2.3: {}
 
-  radashi@12.3.0: {}
+  radashi@12.5.1: {}
 
   resolve-from@4.0.0: {}
 
@@ -1326,7 +1326,7 @@ snapshots:
 
   simple-common-utils@3.1.4:
     dependencies:
-      radashi: 12.3.0
+      radashi: 12.5.1
 
   stable-hash@0.0.4: {}
 
